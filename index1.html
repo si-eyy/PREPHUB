@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepHub - When Disaster Strike: Will you be Prepared?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {  
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0); 
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0);
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            left: 550px;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        
+        
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,0,0,0.2) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .back-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            animation: slideInDown 1s ease-out;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #292626;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            top : 300px;
+            z-index: 3;
+            margin-bottom: 150px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #dc1414, transparent);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #dc1414;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(220, 20, 20, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            border: 2px solid rgba(220, 20, 20, 0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.4s;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(220, 20, 20, 0.4);
+            border-color: #dc1414;
+        }
+
+        .card h3 {
+            color: #dc1414;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .disaster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .disaster-item {
+            background: linear-gradient(135deg, rgba(220, 20, 20, 0.15), rgba(255, 255, 255, 0.05));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid #dc1414;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .disaster-item:hover {
+            background: linear-gradient(135deg, rgba(220, 20, 20, 0.25), rgba(255, 255, 255, 0.1));
+            transform: translateX(10px);
+        }
+
+        .disaster-item h4 {
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: rgba(220, 20, 20, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #dc1414;
+            transition: all 0.3s;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .checklist li:hover {
+            background: rgba(220, 20, 20, 0.2);
+            transform: translateX(5px);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            color: #dc1414;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .do-dont-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .do-box, .dont-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .do-box {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .dont-box {
+            background: linear-gradient(135deg, rgba(220, 20, 20, 0.2), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(220, 20, 20, 0.4);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(220, 20, 20, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .contact-card:hover {
+            border-color: #dc1414;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(220, 20, 20, 0.3);
+        }
+
+        .emergency-number {
+            font-size: 2rem;
+            color: #dc1414;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        footer {
+            background: rgba(220, 20, 20, 0.95);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #292626;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 3;
+            margin-bottom: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            nav ul { gap: 1rem; }
+            section { padding: 3rem 1rem; }
+        }
+
+        /* Scroll animation trigger */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#disasters">Disasters</a></li>
+            <li><a href="#preparedness">Preparedness</a></li>
+            <li><a href="#what-to-do">What To Do</a></li>
+            <li><a href="#first-aid">First Aid</a></li>
+            <li><a href="#contact">Contact</a></li>
+            
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <video autoplay loop muted class="back-video">
+            <source src="7.mp4" type="video/mp4">
+        </video>
+        <a href="#disasters" class="cta-button">Get Started</a>
+    </div>
+
+    <section id="disasters">
+        <h2>What is a Disaster?</h2>
+        <div class="card">
+            <p>A disaster is a sudden or gradual event that causes serious disruption to a community, environment, or country. It leads to widespread damage, loss of life, destruction of property, and interruption of everyday activities. Disasters overwhelm the ability of people and local authorities to cope using their usual resources.</p>
+            <p style="margin-top: 1rem;">Disasters can be <strong style="color: #dc1414;">natural</strong> (typhoons, earthquakes, volcanic eruptions, floods, tsunamis) or <strong style="color: #dc1414;">human-made</strong> (fires, industrial accidents, chemical spills, pollution).</p>
+        </div>
+    </section>
+
+    <section id="disasters">
+        <h2>Types of Disasters</h2>
+        
+        <div class="card">
+            <h3>Natural Disasters</h3>
+            <div class="disaster-grid">
+                <div class="disaster-item">
+                    <h4>🌀 Typhoon</h4>
+                    <p>Rotating storm system with strong winds and heavy rainfall. The Philippines experiences several typhoons yearly.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Notable:</strong> Super Typhoon Yolanda (2013) - strongest to hit PH with 315 km/h winds.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🌋 Volcanic Eruption</h4>
+                    <p>Release of molten rock, ash, and gases from beneath Earth's crust.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Notable:</strong> Mount Pinatubo (1991) - 800+ deaths, displaced 1M+ residents.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🌍 Earthquake</h4>
+                    <p>Sudden shaking of ground caused by tectonic plate movement.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Recent:</strong> 2025 Cebu earthquake (6.9 magnitude) - strongest ever in Cebu province.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🔥 Fire</h4>
+                    <p>Uncontrolled burning destroying property and lives.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Notable:</strong> Ozone Disco Fire (1996) - 162 deaths, deadliest in PH history.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🌊 Tsunami</h4>
+                    <p>Series of powerful ocean waves from underwater earthquakes.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Notable:</strong> 1976 Moro Gulf Tsunami - 5,000-8,000 deaths, waves up to 9m high.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>💧 Flood</h4>
+                    <p>Overflow of water submerging normally dry land.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Notable:</strong> Typhoon Ondoy (2009) - 455mm rainfall in 24 hours, 1M+ displaced.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Human-Made Disasters</h3>
+            <div class="disaster-grid">
+                <div class="disaster-item">
+                    <h4>🏭 Industrial Accidents</h4>
+                    <p>Kentex Factory Fire (2015) - 70+ workers died due to poor safety standards.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🚢 Transportation Accidents</h4>
+                    <p>MV Doña Paz (1987) - World's deadliest peacetime maritime disaster, 4,000+ deaths.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>🛢️ Oil Spills</h4>
+                    <p>Guimaras (2006) & Oriental Mindoro (2023) - Massive environmental damage.</p>
+                </div>
+                <div class="disaster-item">
+                    <h4>⚔️ Armed Conflict</h4>
+                    <p>Marawi Siege (2017) - 300,000+ displaced residents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="preparedness">
+        <h2>Why Disaster Preparedness Matters</h2>
+        <div class="disaster-grid">
+            <div class="card">
+                <h3>💪 Saves Lives</h3>
+                <p>Quick reactions during emergencies reduce injuries and deaths.</p>
+            </div>
+            <div class="card">
+                <h3>🏠 Reduces Damage</h3>
+                <p>Proper preparation minimizes property loss.</p>
+            </div>
+            <div class="card">
+                <h3>👨‍👩‍👧‍👦 Protects Vulnerable Groups</h3>
+                <p>Ensures children, elderly, and disabled have proper assistance.</p>
+            </div>
+            <div class="card">
+                <h3>🤝 Strengthens Community</h3>
+                <p>Prepared communities work together more effectively.</p>
+            </div>
+            <div class="card">
+                <h3>⚡ Faster Recovery</h3>
+                <p>Return to normal life quicker with plans in place.</p>
+            </div>
+            <div class="card">
+                <h3>😌 Reduces Panic</h3>
+                <p>Knowledge decreases anxiety and confusion.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="what-to-do">
+        <h2>What To Do</h2>
+        
+        <div class="card">
+            <h3>Before a Disaster</h3>
+            <ul class="checklist">
+                <li>Identify hazards common in your area</li>
+                <li>Create and practice a family emergency plan</li>
+                <li>Prepare an emergency kit with essentials</li>
+                <li>Store important documents in waterproof containers</li>
+                <li>Know nearest evacuation centers and hospitals</li>
+                <li>Learn basic first aid and CPR</li>
+                <li>Secure your home (fix roofs, windows, electrical)</li>
+                <li>Keep drainage systems clean</li>
+                <li>Save emergency hotlines</li>
+                <li>Stay updated with weather forecasts from PAGASA</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>During a Disaster</h3>
+            <ul class="checklist">
+                <li>Stay calm and avoid panicking</li>
+                <li>Follow evacuation orders immediately</li>
+                <li>Keep emergency kit close</li>
+                <li>Assist vulnerable family members</li>
+                <li>Move to higher ground during floods</li>
+                <li>Stay away from windows and falling objects</li>
+                <li>Turn off electricity to prevent fire</li>
+                <li>Use flashlight, never candles</li>
+                <li>Stay tuned to radio and official announcements</li>
+                <li>If trapped, signal for help with whistle or flashlight</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>After a Disaster</h3>
+            <ul class="checklist">
+                <li>Check yourself and family for injuries</li>
+                <li>Wait for official clearance before returning home</li>
+                <li>Inspect house for structural damage</li>
+                <li>Stay away from fallen power lines</li>
+                <li>Photograph damages for insurance</li>
+                <li>Clean up debris carefully with protective gear</li>
+                <li>Boil water before drinking if supply is uncertain</li>
+                <li>Help neighbors, especially elderly or disabled</li>
+                <li>Monitor physical and mental health</li>
+                <li>Restock emergency kit for future preparedness</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="do-dont">
+        <h2>Do's and Don'ts</h2>
+        <div class="do-dont-grid">
+            <div class="do-box">
+                <h3 style="color: #00ff00; margin-bottom: 1rem;">✅ DO's</h3>
+                <ul class="checklist">
+                    <li>Stay informed with official updates</li>
+                    <li>Have an emergency plan</li>
+                    <li>Follow evacuation orders</li>
+                    <li>Keep emergency supplies ready</li>
+                    <li>Secure your home</li>
+                    <li>Assist others safely</li>
+                    <li>Stay calm</li>
+                    <li>Document important items</li>
+                    <li>Practice regular drills</li>
+                    <li>Report hazards to authorities</li>
+                </ul>
+            </div>
+            <div class="dont-box">
+                <h3 style="color: #ff6b6b; margin-bottom: 1rem;">❌ DON'Ts</h3>
+                <ul class="checklist">
+                    <li>Ignore warnings</li>
+                    <li>Panic or act impulsively</li>
+                    <li>Spread misinformation</li>
+                    <li>Travel through unsafe areas</li>
+                    <li>Overload emergency lines</li>
+                    <li>Return too soon</li>
+                    <li>Neglect safety gear</li>
+                    <li>Leave children or pets unattended</li>
+                    <li>Drive recklessly</li>
+                    <li>Assume you can handle it alone</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="first-aid">
+        <h2>Basic First Aid Principles</h2>
+        <div class="disaster-grid">
+            <div class="card">
+                <h3>1. Ensure Safety</h3>
+                <p>Assess scene for dangers. Make sure it's safe before approaching.</p>
+            </div>
+            <div class="card">
+                <h3>2. Assess Situation</h3>
+                <p>Check consciousness. Observe for life-threatening conditions.</p>
+            </div>
+            <div class="card">
+                <h3>3. Call for Help</h3>
+                <p>Dial emergency number. Provide clear location and injury information.</p>
+            </div>
+            <div class="card">
+                <h3>4. ABC Check</h3>
+                <p><strong>A</strong>irway, <strong>B</strong>reathing, <strong>C</strong>irculation. Begin CPR if needed.</p>
+            </div>
+            <div class="card">
+                <h3>5. Control Bleeding</h3>
+                <p>Apply firm pressure with clean cloth. Keep injured area elevated.</p>
+            </div>
+            <div class="card">
+                <h3>6. Treat for Shock</h3>
+                <p>Lay person down, elevate legs. Keep warm and reassure.</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Go Bag Essentials</h3>
+            <p style="margin-bottom: 1rem;">A Go Bag is your portable survival kit for emergencies. Pack these items in a durable, waterproof backpack:</p>
+            <div class="disaster-grid">
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">📋 Documents</h4>
+                    <p>IDs, passports, certificates, medical records, emergency contacts, cash, USB with scanned documents</p>
+                </div>
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">💧 Water & Food</h4>
+                    <p>Bottled water, purification tablets, energy bars, canned food, instant noodles, can opener</p>
+                </div>
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">🏥 First Aid</h4>
+                    <p>Bandages, antiseptic, painkillers, prescription meds, thermometer, gloves</p>
+                </div>
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">👕 Clothing</h4>
+                    <p>Extra clothes, underwear, raincoat, thermal blanket, face masks, sturdy shoes</p>
+                </div>
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">🔦 Tools</h4>
+                    <p>Flashlight, batteries, powerbank, multi-tool, rope, duct tape, whistle, matches</p>
+                </div>
+                <div>
+                    <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">📱 Communication</h4>
+                    <p>Extra phone, charger, radio, maps, emergency numbers written down</p>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; color: #ff6b6b;"><strong>💡 Tip:</strong> Check contents every 6 months to replace expired items!</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>About PrepHub</h2>
+        <div class="card">
+            <h3>Our Mission</h3>
+            <p>"To give awareness by providing clear, accessible, and accurate information about disaster risks, safety measures, and preparedness practices. We ensure every individual understands the importance of knowing practical safety measures and feels confident in making informed decisions before, during and after emergencies."</p>
+        </div>
+
+        <div class="card">
+            <h3>Our Vision</h3>
+            <p>"To build a well-informed and safety-conscious community where disaster awareness is implemented in everyday life. We envision people understanding risks, staying alert, and being proactive to save themselves and implement readiness that significantly reduces harm and strengthens resilience."</p>
+        </div>
+
+        <div class="card">
+            <h3>Emergency Hotlines</h3>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <p>National Emergency</p>
+                    <div class="emergency-number">911</div>
+                </div>
+                <div class="contact-card">
+                    <p>NDRRMC</p>
+                    <div class="emergency-number">(02) 8911-1406</div>
+                </div>
+                <div class="contact-card">
+                    <p>Philippine Red Cross</p>
+                    <div class="emergency-number">143</div>
+                </div>
+                <div class="contact-card">
+                    <p>PAGASA</p>
+                    <div class="emergency-number">(02) 8284-0800</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Contact Our Team</h3>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <p><strong>Jian Stephen D. Babasa</strong></p>
+                    <p>jian.stephen1217@gmail.com</p>
+                </div>
+                <div class="contact-card">
+                    <p><strong>Charles V. Amelano</strong></p>
+                    <p>amelanocharles@gmail.com</p>
+                </div>
+                <div class="contact-card">
+                    <p><strong>Zarren E. Contreras</strong></p>
+                    <p>contreraszarren@gmail.com</p>
+                </div>
+                <div class="contact-card">
+                    <p><strong>Marc Andrei L. Dita</strong></p>
+                    <p>marcandriedita@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>PrepHub - Founded November 27, 2025</strong></p>
+        <p style="margin-top: 1rem;">Stay aware. Stay prepared. Stay safe.</p>
+        <p style="margin-top: 0.5rem;">Together, we can face any challenge confidently and responsibly.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, observerOptions);
+            });
+        document.querySelectorAll('.card, .disaster-item').forEach(el => {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
+        });st observerOptions = {
+    </script>hreshold: 0.1,
+</body>     rootMargin: '0px 0px -50px 0px'
+</html> };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .disaster-item').forEach(el => {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
